@@ -40,53 +40,43 @@ fn main() -> ! {
 
     //enable GPIOE peripheral
     rcc.ahbenr.modify(|_, w| w.iopeen().set_bit());
+    gpioa.moder.modify(|_,w| w.moder0().output());
+    gpioa.odr.write(|w| {
+        w.odr0().set_bit()
+});
 
     
-        gpioa.moder.modify(|_,w| w.moder0().input());
-        gpioe.moder.modify(|_, w| {
-            w.moder8().output();
-            w.moder9().output();
-            w.moder10().input();
-            w.moder11().output();
-            w.moder12().output();
-            w.moder13().output();
-            w.moder14().output();
-            w.moder15().output()
-        });
+        // gpioa.moder.modify(|_,w| w.moder0().input());
+        // gpioe.moder.modify(|_, w| {
+        //     w.moder8().output();
+        //     w.moder9().output();
+        //     w.moder10().input();
+        //     w.moder11().output();
+        //     w.moder12().output();
+        //     w.moder13().output();
+        //     w.moder14().output();
+        //     w.moder15().output()
+        // });
     
-        loop{
-            if  gpioa.idr.read().idr0().bit_is_clear(){
-                let ms = 50_u8;
+        // loop{
+        //     if  gpioa.idr.read().idr0().bit_is_clear(){
+        //         let ms = 50_u8;
 
-                gpioe.odr.write(|w| {
-                    w.odr8().set_bit();
-                    delay.delay_ms(ms);
-                    w.odr9().set_bit();
-                    delay.delay_ms(ms);
-                    w.odr10().clear_bit();
-                    w.odr11().set_bit();
-                    w.odr12().set_bit();
-                    w.odr13().set_bit();
-                    w.odr14().set_bit();
-                    w.odr15().set_bit()
-                });
+        //         gpioe.odr.write(|w| {
+        //             w.odr8().set_bit();
+        //             // delay.delay_ms(ms);
+        //             w.odr9().set_bit();
+        //             // delay.delay_ms(ms);
+        //             w.odr10().clear_bit();
+        //             w.odr11().set_bit();
+        //             w.odr12().set_bit();
+        //             w.odr13().set_bit();
+        //             w.odr14().set_bit();
+        //             w.odr15().set_bit()
+        //         });
                     
-                 }
-        }
-    // gpioc.moder.modify(|_, w| {
-    //     w.moder13().output()
-    // });
-    // gpioc.odr.write(|w| {
-    //     w.odr13().set_bit()
-    // });
-
-    // //configure the pins asoutputs
-   
-
-    // // TODO initialize GPIOE
-
-    // // Turn on all the LEDs in the compass
-    
+        //          }
+        // }
 
     aux8::bkpt();
 
